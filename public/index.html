@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html data-ng-app>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Contact List App</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	
+
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-header"> 
+	 			<a class="navbar-brand" href="#">iContacts</a>
+	 			<a class="navbar-brand" href="http://www.linkedin.com/in/avinashchander">iLinkedIn</a>
+	 			<a class="navbar-brand" href="https://www.facebook.com/avinash.chander.1232">iFB</a>
+	 			<a class="navbar-brand" href="https://github.com/avinashc89">iGitHub</a>
+	 	</div>
+	</nav>
+	<br><br>
+	<div class="container" data-ng-controller="AppController">
+	<table width="100%" >
+		<tr>
+				<td><img src="images/download.jpg"></td>
+				<td align="right"><input class="form-control" ng-model="search.$" placeholder="Search Contact	"> </td>
+		</tr>
+	</table>
+	<form  name="myForm">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Number</th>
+					<th>Action</th>
+				</tr>
+
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<input class="form-control" name="personName" type="text" ng-model="editContact.name" required>
+						
+						<span style="color:red" ng-show="myForm.personName.$dirty && myForm.personName.$invalid">
+						<span ng-show="myForm.personName.$error.required">Name is required.</span></span>
+					</td>
+					<td>
+						<input class="form-control"  name="email" type="email" ng-model="editContact.email" required>
+					
+						<span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+						<span ng-show="myForm.email.$error.required">Email is required.</span>
+						<span ng-show="myForm.email.$error.email">Invalid email address.</span></span>
+					</td>
+					<td>
+						<input class="form-control" name="number" ng-pattern="phone" ng-model="editContact.phone" required>
+					
+						<span style="color:red" ng-show="myForm.number.$dirty && myForm.number.$invalid">
+						<span ng-show="myForm.number.$error.required">Number is required.</span>
+						<span ng-show="myForm.number.$error.pattern">Not a valid phone number!</span>
+						</span>
+					</td>
+					<td><button class="btn btn-primary" 
+										ng-disabled="myForm.email.$invalid || myForm.number.$invalid || myForm.name.$invalid" 
+							ng-click="addContact()">Add Contact</button> 
+							
+							</td>
+					
+				</tr>
+				<tr ng-repeat="contact in contactList | filter:search">
+					<td>{{contact.name}}</td>
+					<td>{{contact.email}}</td>
+					<td>{{contact.phone}}</td>
+				</tr>
+			</tbody>
+		</table>
+		</form>
+	</div>
+	
+	
+	
+	
+<script  src="angular.min.js"></script>
+<script  src="controller/controller.js"></script>	
+</body>
+</html>
